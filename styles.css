@@ -21,7 +21,7 @@
 
 html {
     scroll-behavior: smooth;
-    font-size: 15px; /* Reduced base font size for elegance */
+    font-size: 14px; /* Further reduced base font size for elegance */
 }
 
 body {
@@ -273,7 +273,7 @@ header {
     min-height: 100vh;
     padding-top: 100px; /* offset for fixed header */
     display: flex;
-    align-items: center;
+    align-items: stretch; /* Allow contents to define height, especially for bottom alignment */
     overflow: hidden;
     background-color: var(--bg-color);
 }
@@ -312,7 +312,7 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
-    align-items: center;
+    align-items: stretch; /* Allow children to stretch so image wrapper can pin to bottom */
     z-index: 2; /* In front of bg text */
     position: relative;
 }
@@ -320,8 +320,10 @@ header {
 .hero-content {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 1.5rem;
     z-index: 3;
+    padding-bottom: 2rem;
 }
 
 .hero-meta {
@@ -375,17 +377,20 @@ header {
 .hero-image-wrapper {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: flex-end; /* Anchor image to the bottom */
     height: 100%;
     z-index: 3;
 }
 
 .hero-image {
-    max-height: 95vh;
+    max-height: 90vh; /* Adjust so it doesn't overflow drastically */
+    width: 100%;
     object-fit: contain;
+    object-position: bottom;
     filter: drop-shadow(0px 20px 30px rgba(0,0,0,0.8)) grayscale(100%);
-    transform: scale(1.1);
+    transform: scale(1.15); /* Enlarge further */
     transform-origin: bottom center;
+    display: block;
 }
 
 .hero-stats {
@@ -394,6 +399,7 @@ header {
     gap: 2rem;
     justify-content: center;
     z-index: 3;
+    padding-bottom: 2rem;
 }
 
 .hero-name-block h2 {
@@ -437,10 +443,12 @@ header {
         grid-template-columns: 1fr;
         text-align: center;
         padding-top: 4rem;
+        gap: 0; /* Remove gap so image can rest on bottom */
     }
 
     .hero-content {
         align-items: center;
+        padding-bottom: 2rem;
     }
 
     .hero-description {
@@ -459,6 +467,57 @@ header {
 
     .hero-image {
         max-height: 60vh;
+        transform: scale(1);
+    }
+
+    .hero-bg-text {
+        font-size: 25vw; /* Adjust bg text for stacked layout */
+    }
+
+    .hero-stats {
+        padding-bottom: 4rem;
+        order: 2; /* Put stats after image or content */
+    }
+
+    .hero-image-wrapper {
+        order: 3; /* Ensure image is at the very bottom */
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-bg-text-wrapper {
+        top: 30%;
+    }
+
+    .hero-bg-text {
+        font-size: 35vw;
+        letter-spacing: 0;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .container {
+        padding: 4rem 1.5rem;
+    }
+
+    .macro-card {
+        padding: 1.5rem;
+    }
+
+    .modal-content {
+        padding: 2rem 1.5rem;
+        margin: 10% auto;
+    }
+
+    .director-img {
+        max-height: 60vh;
+        transform: scale(1);
     }
 }
 
@@ -738,12 +797,13 @@ header {
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: flex-end;
 }
 
 .director-img {
-    max-height: 95vh;
+    max-height: 100vh;
     object-fit: cover;
-    transform: scale(1.1);
+    transform: scale(1.2); /* Enlarge further */
     transform-origin: bottom center;
     /* Fusión de sombras con el fondo oscuro */
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
@@ -816,6 +876,14 @@ header {
         text-align: center;
     }
 
+    .director-image-col {
+        order: 2; /* Put image at the bottom of the section on mobile */
+    }
+
+    .director-content-col {
+        order: 1;
+    }
+
     .director-content-col .section-description {
         text-align: center !important;
         margin-left: auto !important;
@@ -883,6 +951,15 @@ header {
     padding: 3rem;
     border: 1px solid var(--border-color);
     position: relative;
+}
+
+@media (max-width: 768px) {
+    .service-block {
+        padding: 1.5rem;
+    }
+    .service-title {
+        font-size: 1.5rem;
+    }
 }
 
 .service-title {
@@ -1174,6 +1251,12 @@ header {
     background-color: var(--bg-surface);
     padding: 3rem;
     border: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+    .contact-form-wrapper {
+        padding: 1.5rem;
+    }
 }
 
 .contact-form-wrapper h3 {
